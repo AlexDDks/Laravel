@@ -58,7 +58,7 @@ use App\Http\Controllers\courseController;
 
 // Controller home return string
 // http://localhost/firstApp/public/
-Route::get('/', homeController::class);
+Route::get('/', homeController::class); //Because we are only using the name of the controller and ::class, laravel asume that we are using the method __invoke
 
 
 // //Controller Course return string

@@ -6,17 +6,17 @@ use Illuminate\Http\Request;
 
 class courseController extends Controller
 {
-    public function index() //just for one route
+    public function index()
     {
         return view("courses.index");
     }
 
-    public function create() //just for one route
+    public function create()
     {
         return view("courses.index");
     }
 
-    public function show($course) //just for one route
+    public function show($course)
     {
         return view("courses.show", ["course" => $course]);
     }
