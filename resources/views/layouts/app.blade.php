@@ -1,46 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Declaración del tipo de documento para HTML5 -->
+<html lang="en"> <!-- El documento está en inglés -->
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8"> <!-- Establece el conjunto de caracteres del documento a UTF-8 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Courses App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f4;
-        }
-
-        .navbar {
-            background-color: #333;
-            color: white;
-            padding: 1rem 2rem;
-        }
-
-        .container {
-            width: 80%;
-            margin: auto;
-            padding: 2rem;
-            background-color: #fff;
-            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-        }
-
-        a {
-            color: #3498db;
-            text-decoration: none;
-        }
-    </style>
+    <!-- Hace que el sitio web sea responsive, asegurándose de que se visualice correctamente en dispositivos móviles -->
+    <title>Courses App</title> <!-- Establece el título de la página web -->
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <!-- Incluye el archivo de estilos app.css de la carpeta public/css -->
+    @stack('styles') <!-- Permite insertar estilos específicos que se "apilan" desde vistas hijo -->
 </head>
 
-<body>
-    <div class="navbar">
-        <a href="{{ route('courses.index') }}">Courses App</a>
-    </div>
-    <div class="container">
-        @yield('content')
-    </div>
-</body>
+<body> <!-- Comienza el cuerpo del documento -->
 
-</html>
+    <div class="navbar"> <!-- Contenedor para la barra de navegación -->
+        <a href="{{ route('courses.index') }}">Courses App</a>
+        <!-- Enlace a la lista de cursos. La función route() genera una URL para la ruta con el nombre 'courses.index' -->
+    </div>
+    <div class="container"> <!-- Contenedor principal para el contenido -->
+        @yield('content') <!-- Este es un punto de inserción donde las vistas hijo pueden "introducir" su contenido -->
+    </div>
+
+</body> <!-- Fin del cuerpo del documento -->
+
+</html> <!-- Fin del documento HTML -->

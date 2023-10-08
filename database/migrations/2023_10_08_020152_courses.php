@@ -11,6 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
+        //Here we stablish the DB courses
         Schema::create('courses', function (Blueprint $table) {
             $table->id(); // Integer Unsigned Increment (Primary Key)
             $table->string('title'); // Course Title varchar(255)

@@ -1,0 +1,30 @@
+/* Estilos específicos para el formulario de cursos */
+
+.course-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.course-form label,
+.course-form input,
+.course-form textarea,
+.course-form select {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+}
+
+.course-form input[type="submit"] {
+    cursor: pointer;
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+        background-color: #2980b9;
+    }
+}
