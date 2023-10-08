@@ -12,22 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nombreDeLaTabla', function (Blueprint $table) {
-            $table->id();
-            $table->morphs('tokenable');
-            $table->string('name');
-            $table->string('token', 64)->unique();
-            $table->text('abilities')->nullable();
-            $table->timestamp('last_used_at')->nullable();
-            $table->timestamp('expires_at')->nullable();
-            $table->timestamps();
+            $table->id(); //Integer Unsigned Increment
+            $table->string('name'); //varchar(255)
+            $table->string('apellido'); //varchar(255)
+            $table->string('apellido2'); //varchar(255)
+            $table->string('email')->unique(); //
+            $table->timestamp('email_verified_at')->nullable(); //To save dates
+            $table->timestamps(); //created_at and updated_at
         });
     }
-
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('nombreDeLaTabla');
     }
 };

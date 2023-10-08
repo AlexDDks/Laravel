@@ -1,79 +1,17 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\courseController;
+use App\Http\Controllers\CourseController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
+Route::resource('courses', CourseController::class);
 
+// Lo que hace este método resource es generar automáticamente todas las rutas necesarias para un CRUD completo, y las asocia con los métodos del controlador:
 
-
-// //Route by GET one by one
-// // http://localhost/firstApp/public/
-// Route::get('/', function () {
-//     // return view('welcome');
-//     return "Hello world";
-// });
-
-// //Route to courses
-// // http://localhost/firstApp/public/courses/
-// Route::get('/courses', function () {
-//     return "Welcome to the courses";
-// });
-
-// // Route to a variable
-// // http://localhost/firstApp/public/courses/something
-// Route::get('/courses/{course}', function ($course) {
-//     return "Welcome to the courses: $course";
-// });
-
-// // Route to 2 variables
-// // http://localhost/firstApp/public/courses/something/something
-// Route::get('/courses/{course}/{category}', function ($course, $category) {
-//     return "Welcome to the courses: $course of the category $category";
-// });
-
-// // Route to 2 variables (optional)
-// // http://localhost/firstApp/public/courses/something/something
-// Route::get('/courses/{course}/{category?}', function ($course, $category = null) {
-//     if ($category) {
-//         return "Welcome to the courses: $course of the category $category";
-//     } else {
-//         return "Welcome to the courses: $course";
-//     }
-// });
-
-
-//USING CONTROLLER
-//Route by GET
-
-// Controller home return string
-// http://localhost/firstApp/public/
-Route::get('/', homeController::class); //Because we are only using the name of the controller and ::class, laravel asume that we are using the method __invoke
-
-
-// //Controller Course return string
-// // http://localhost/firstApp/public/courses/
-// Route::get('courses', [courseController::class, "index"]);
-
-// //http://localhost/firstApp/public/courses/create
-// Route::get('courses/create', [courseController::class, "create"]);
-
-// // http://localhost/firstApp/public/courses/something/something
-// Route::get('courses/{course}/{category?}', [courseController::class, "show"]);
-
-//Controller Course by group return string
-Route::controller(courseController::class)->group(function () {
-    Route::get('courses', "index");
-    Route::get('courses/create', "create");
-    Route::get('courses/{course}/{category?}', "show");
-});
+// GET courses -> index (listar todos los cursos)
+// GET courses/create -> create (mostrar formulario de creación)
+// POST courses -> store (almacenar un nuevo curso)
+// GET courses/{course} -> show (mostrar un curso específico)
+// GET courses/{course}/edit -> edit (mostrar formulario de edición)
+// PUT/PATCH courses/{course} -> update (actualizar un curso específico)
+// DELETE courses/{course} -> destroy (eliminar un curso específico)
+// Con esa única línea, estás creando todas las rutas necesarias para el CRUD de cursos en Laravel.

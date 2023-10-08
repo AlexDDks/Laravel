@@ -1,13 +1,32 @@
 {{-- What layout is gonna use --}}
 @extends('layouts.plantilla')
 
-{{-- Just for one line --}}
-@section('title', 'Home')
+{{-- Just for one line (insert the second argument in the title) --}}
+@section('title', 'Prueba')
 
-{{-- More than one line --}}
+{{-- More than one line that is gonna be added --}}
 @section('content')
-    <h1> This is home </h1>
+    <h1> This is prueba </h1>
 @endsection
+
+@section('anotherContent', 'Another content')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 {{-- Esta es la estructura que se repite en todas las páginas --}}

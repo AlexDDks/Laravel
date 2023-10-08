@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 // This defines a new class named homeController that extends (or inherits from) Laravel's base Controller class. By extending this class, homeController inherits all properties and methods from the Controller class, allowing it to utilize all the basic functionality that Laravel provides for controllers.
 class homeController extends Controller
 {
-    public function __invoke() //just for one route
+    // THIS IS A METHOD OF THE CLASS
+    public function __invoke() //just for one route, this is a method called __invoke
     {
         // return view('welcome');
         return view("home");
