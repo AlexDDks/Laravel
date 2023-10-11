@@ -14,7 +14,7 @@ class CourseController extends Controller
     // URL de ejemplo: http://localhost/firstApp_withCRUD/public/courses
     public function index()
     {
-        // Obtiene todos los registros de la tabla 'courses' en la base de datos.
+        // Obtiene todos los registros de la tabla 'courses' en la base de datos y lo guarda en la variable course, gracias a eloquent por el método all, no tenemos que escribir la sintaxis all
         $courses = Course::all(); // SQL: SELECT * FROM courses;
 
         // Devuelve la vista 'courses.index' y pasa la variable $courses a esa vista.

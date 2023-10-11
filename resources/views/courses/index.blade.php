@@ -7,7 +7,7 @@
     <h2>Courses List</h2>
     <!-- Título de la página que indica que estamos viendo una lista de cursos. -->
 
-    <!-- Botón para navegar a la página de creación de cursos. -->
+    <!-- Botón para navegar a la página de creación de cursos, osea el método create() -->
     <a class="add-course-button" href="{{ route('courses.create') }}">Add New Course</a>
 
     <!-- Inicio de la tabla que muestra todos los cursos. -->
@@ -27,10 +27,10 @@
 
         <!-- Cuerpo de la tabla. -->
         <tbody>
-            <!-- Recorre cada curso en la variable $courses. -->
+            <!-- Recorre cada curso en la variable $courses.Permite iterar o recorrer cada elemento de una colección o un array.-->
             @foreach ($courses as $course)
                 <tr>
-                    <!-- Muestra la información del curso en las celdas correspondientes. -->
+                    <!-- Muestra la información del curso en las celdas correspondientes, los datos son mandados desde el controlador -->
                     <td>{{ $course->title }}</td>
                     <td>{{ $course->description }}</td>
                     <td>{{ $course->language }}</td>
@@ -45,11 +45,8 @@
 
                         <!-- Formulario para eliminar el curso. -->
                         <form class="delete-form" action="{{ route('courses.destroy', $course->id) }}" method="post">
-                            @csrf
-                            <!-- Token CSRF para proteger contra ataques de falsificación de solicitudes entre sitios. -->
-
                             @method('DELETE')
-                            <!-- Esta directiva especifica que el formulario debe enviar una solicitud HTTP DELETE, que es el método HTTP estándar para eliminar recursos. -->
+                            <!-- Esta directiva especifica que el formulario debe enviar una solicitud HTTP DELETE, que es el método HTTP estándar para eliminar recursos.  Los navegadores web típicamente solo admiten los métodos HTTP GET y POST cuando envían formularios. Sin embargo, las aplicaciones RESTful, como las creadas con Laravel, a menudo requieren otros métodos como PUT, PATCH y DELETE. Esta directiva agrega un campo oculto que indica a Laravel que la verdadera intención de este formulario POST es realizar una acción DELETE. Laravel interpretará esto adecuadamente en el servidor y tratará la solicitud como si fuera un DELETE -->
 
                             <!-- Botón para enviar el formulario y eliminar el curso. -->
                             <button type="submit" class="delete-button">Delete</button>
