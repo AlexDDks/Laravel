@@ -27,7 +27,7 @@
 
         <!-- Cuerpo de la tabla. -->
         <tbody>
-            <!-- Recorre cada curso en la variable $courses.Permite iterar o recorrer cada elemento de una colección o un array.-->
+            <!-- Recorre cada curso en la variable $courses.Permite iterar o recorrer cada elemento de una colección o un array y lo guarda en $course.-->
             @foreach ($courses as $course)
                 <tr>
                     <!-- Muestra la información del curso en las celdas correspondientes, los datos son mandados desde el controlador -->
@@ -40,6 +40,9 @@
 
                     <!-- Celda que contiene acciones para editar y eliminar un curso. -->
                     <td class="actions-cell">
+                        <!-- Enlace para ir a un curso específico, ya que estamos en un FOR EACH, la variable $course tiene toda la información de SOLO UN ITEM en cada iteración -->
+                        <a class="view-course-button" href="{{ route('courses.show', $course->id) }}">View</a>
+
                         <!-- Enlace para editar el curso. -->
                         <a class="edit-link" href="{{ route('courses.edit', $course->id) }}">Edit</a>
 
@@ -52,6 +55,7 @@
                             <button type="submit" class="delete-button">Delete</button>
                         </form>
                     </td>
+
                 </tr>
             @endforeach
             <!-- Fin del bucle foreach. -->

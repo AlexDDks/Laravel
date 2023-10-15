@@ -25,13 +25,13 @@ Route::get('/courses/create', [CourseController::class, 'create'])->name('course
 Route::post('/courses', [CourseController::class, 'store'])->name('courses.store');
 
 // 4. Show
-Route::get('/courses/{course}', [CourseController::class, 'show'])->name('courses.show');
+Route::get('/courses/{id}', [CourseController::class, 'show'])->name('courses.show');
 
 // 5. Edit
-Route::get('/courses/{course}/edit', [CourseController::class, 'edit'])->name('courses.edit');
+Route::get('/courses/{id}/edit', [CourseController::class, 'edit'])->name('courses.edit');
 
 // 6. Update
-Route::put('/courses/{course}', [CourseController::class, 'update'])->name('courses.update');
+Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.update');
 
 // 7. Destroy
-Route::delete('/courses/{course}', [CourseController::class, 'destroy'])->name('courses.destroy');
+Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');

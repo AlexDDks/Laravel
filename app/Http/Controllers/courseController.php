@@ -21,12 +21,20 @@ class CourseController extends Controller
         return view('courses.index', ['courses' => $courses]);
     }
 
+    // URL de ejemplo: http://localhost/firstApp_withCRUD/public/courses/{course}
+    public function show(Course $course)
+    {
+        // Laravel automáticamente inyectará el modelo Course con el ID correcto.
+        // No necesitas buscar el curso manualmente, Laravel lo hace por ti.
+        return view('courses.show', compact('course'));
+    }
+
     // Muestra el formulario para crear un nuevo curso.
     // URL de ejemplo: http://localhost/firstApp_withCRUD/public/courses/create
     public function create()
     {
         // Devuelve la vista 'courses.create' donde el usuario puede ingresar detalles del nuevo curso.
-        return view('courses.create'); //Este es un formulario
+        return view('courses.create'); //Este es un formulario de creación
     }
 
     // Almacena un nuevo curso en la base de datos.
