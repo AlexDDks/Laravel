@@ -8,9 +8,10 @@
     <!-- Título de la página que indica que estamos en la sección de edición de curso. -->
 
     <!-- Comienza el formulario para editar un curso.
-                 La acción del formulario apunta a la ruta 'courses.update' y pasa el ID del curso para saber cuál modificar.
-                 La clase añadida se utiliza para dar estilos específicos al formulario. -->
-    <form action="{{ route('courses.update', $course->id) }}" method="post" class="edit-course-form">
+                                                 La acción del formulario apunta a la ruta 'courses.update' y pasa el ID del curso para saber cuál modificar.
+                                                 La clase añadida se utiliza para dar estilos específicos al formulario. -->
+    <form action="{{ route('courses.update', $course->id) }}" method="post" class="edit-course-form"
+        enctype="multipart/form-data">
         @csrf
         <!-- Token CSRF para proteger contra ataques de falsificación de solicitudes entre sitios. -->
 
@@ -35,11 +36,21 @@
             <option value="Advanced" {{ $course->difficulty == 'Advanced' ? 'selected' : '' }}>Advanced</option>
         </select>
 
-        <label>Instructor:</label>
-        <input type="text" name="instructor" value="{{ $course->instructor }}">
+        <label for="instructor">Instructor:</label>
+        <select name="instructor" id="instructor" class="form-control">
+            <option value="">Seleccione un instructor</option>
+            @foreach ($instructors as $instructor)
+                <option value="{{ $instructor->name }}" {{ old('instructor') == $instructor->name ? 'selected' : '' }}>
+                    {{ $instructor->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('instructor')
+            <!-- Mensaje de error para el campo 'instructor' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
-        <label>Email:</label>
-        <input type="email" name="email" value="{{ $course->email }}">
+
 
         <!-- Botón para enviar el formulario y actualizar la información del curso en la base de datos. -->
         <input type="submit" value="Update Course">
@@ -51,7 +62,7 @@
 
 @push('styles')
     <!-- Comienza una directiva push para la pila 'styles'. Esto permite agregar estilos específicos a esta vista que se insertarán en la ubicación @stack('styles') de 'layouts.app'. -->
-    <link rel="stylesheet" href="{{ asset('css/edit-course.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/edit-course.css') }}?v=1.01">
     <!-- Enlace al archivo de estilos específico para esta página de edición. La función asset() ayuda a generar la URL para el recurso en el directorio 'public'. -->
 @endpush
 <!-- Finaliza la directiva push. -->

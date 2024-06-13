@@ -1,0 +1,9 @@
+1. Create the table students (by CLI) and modify the fields
+2. Create the pivote table: course_student
+3. Create the model student
+4. Stablish the relation many to many in both models
+5. Create the form to save students
+6. Creathe the CRUD for students(Just to create and read)-ROUTES AND CONTROLLER
+7.In the Create form for students, add a select/option to include an existent course.
+8. Display a viewList of all students and its Subjects
+

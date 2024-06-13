@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CourseController;
+use App\Http\Controllers\StudentController;
+use App\Http\Controllers\InstructorController;
 
 // Route::resource('courses', CourseController::class);
 // Lo que hace este método resource es generar automáticamente todas las rutas necesarias para un CRUD completo, y las asocia con los métodos del controlador:
@@ -35,3 +37,31 @@ Route::put('/courses/{id}', [CourseController::class, 'update'])->name('courses.
 
 // 7. Destroy
 Route::delete('/courses/{id}', [CourseController::class, 'destroy'])->name('courses.destroy');
+
+
+// INSTRUCTOR
+// 8. Show form to create Instructor
+Route::get('/instructor', [InstructorController::class, 'createInstructor'])->name('instructors.create');
+
+// 9. CreateInstructor
+Route::post('/instructors', [InstructorController::class, 'storeInstructor'])->name('instructors.store');
+
+// 10. See all instructors:
+Route::get('/instructors', [InstructorController::class, 'indexInstructors'])->name('instructors.list');
+
+//11. Showing the courses of each professor
+Route::get('/instructor/{id}/courses', [InstructorController::class, 'showByInstructor'])->name('instructor.courses');
+
+//12. Delete an instructor
+Route::delete('/instructors/{instructor}', [InstructorController::class, 'destroy'])->name('instructors.destroy');
+
+
+// STUDENTS
+//12. Show form to create a Student
+Route::get('/studentForm', [StudentController::class, 'create'])->name('students.create');
+
+//13 Handle the submission of the student creation form
+Route::post('/students', [StudentController::class, 'store'])->name('students.store');
+
+// 14. Route for showing the list of students
+Route::get('/students', [StudentController::class, 'index'])->name('students.index');

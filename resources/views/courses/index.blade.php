@@ -1,18 +1,14 @@
 @extends('layouts.app')
-<!-- Extiende o hereda todo el contenido de la vista 'layouts.app'. Esto significa que se usará como una plantilla base. -->
 
 @section('content')
-    <!-- Comienza una sección llamada 'content'. Esta sección se insertará en el punto de la plantilla yield('content') en 'layouts.app'. -->
-
     <h2>Courses List</h2>
-    <!-- Título de la página que indica que estamos viendo una lista de cursos. -->
+    <a class="add-course-button btn btn-primary" href="{{ route('courses.create') }}">Add New Course</a>
+    <a class="view-instructors-button btn btn-secondary" href="{{ route('instructors.list') }}">View All Instructors</a>
+    <a class="add-instructor-button btn btn-primary" href="{{ route('instructors.create') }}">Add New Instructor</a>
+    <!-- New button for viewing all students -->
+    <a class="view-students-button btn btn-secondary" href="{{ route('students.index') }}">View All Students</a>
 
-    <!-- Botón para navegar a la página de creación de cursos, osea el método create() -->
-    <a class="add-course-button" href="{{ route('courses.create') }}">Add New Course</a>
-
-    <!-- Inicio de la tabla que muestra todos los cursos. -->
-    <table class="courses-table">
-        <!-- Encabezado de la tabla. -->
+    <table class="courses-table table">
         <thead>
             <tr>
                 <th>Title</th>
@@ -20,54 +16,71 @@
                 <th>Language</th>
                 <th>Difficulty</th>
                 <th>Instructor</th>
-                <th>Email</th>
                 <th>Actions</th>
             </tr>
         </thead>
-
-        <!-- Cuerpo de la tabla. -->
         <tbody>
-            <!-- Recorre cada curso en la variable $courses.Permite iterar o recorrer cada elemento de una colección o un array y lo guarda en $course.-->
             @foreach ($courses as $course)
                 <tr>
-                    <!-- Muestra la información del curso en las celdas correspondientes, los datos son mandados desde el controlador -->
                     <td>{{ $course->title }}</td>
                     <td>{{ $course->description }}</td>
                     <td>{{ $course->language }}</td>
                     <td>{{ $course->difficulty }}</td>
-                    <td>{{ $course->instructor }}</td>
-                    <td>{{ $course->email }}</td>
-
-                    <!-- Celda que contiene acciones para editar y eliminar un curso. -->
-                    <td class="actions-cell">
-                        <!-- Enlace para ir a un curso específico, ya que estamos en un FOR EACH, la variable $course tiene toda la información de SOLO UN ITEM en cada iteración -->
-                        <a class="view-course-button" href="{{ route('courses.show', $course->id) }}">View</a>
-
-                        <!-- Enlace para editar el curso. -->
-                        <a class="edit-link" href="{{ route('courses.edit', $course->id) }}">Edit</a>
-
-                        <!-- Formulario para eliminar el curso. -->
-                        <form class="delete-form" action="{{ route('courses.destroy', $course->id) }}" method="post">
-                            @method('DELETE')
-                            <!-- Esta directiva especifica que el formulario debe enviar una solicitud HTTP DELETE, que es el método HTTP estándar para eliminar recursos.  Los navegadores web típicamente solo admiten los métodos HTTP GET y POST cuando envían formularios. Sin embargo, las aplicaciones RESTful, como las creadas con Laravel, a menudo requieren otros métodos como PUT, PATCH y DELETE. Esta directiva agrega un campo oculto que indica a Laravel que la verdadera intención de este formulario POST es realizar una acción DELETE. Laravel interpretará esto adecuadamente en el servidor y tratará la solicitud como si fuera un DELETE -->
-
-                            <!-- Botón para enviar el formulario y eliminar el curso. -->
-                            <button type="submit" class="delete-button">Delete</button>
-                        </form>
+                    <td>
+                        @if ($course->instructor_id)
+                            <a href="{{ route('instructor.courses', $course->instructor_id) }}">{{ $course->instructor }}</a>
+                        @else
+                            Instructor Not Assigned
+                        @endif
                     </td>
 
+                    <td class="actions-cell">
+                        <a class="view-course-button btn btn-info" href="{{ route('courses.show', $course->id) }}">View</a>
+                        <a class="edit-link btn btn-warning" href="{{ route('courses.edit', $course->id) }}">Edit</a>
+                        <button class="delete-button btn btn-danger"
+                            onclick="confirmDelete({{ $course->id }})">Delete</button>
+                    </td>
                 </tr>
             @endforeach
-            <!-- Fin del bucle foreach. -->
         </tbody>
     </table>
-    <!-- Fin de la tabla. -->
+
+    <!-- Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>Confirm Deletion</h2>
+            <p>Are you sure you want to delete this course?</p>
+            <form id="deleteForm" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-secondary" onclick="closeModal()">Cancel</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
+    </div>
 @endsection
-<!-- Finaliza la sección 'content'. -->
 
 @push('styles')
-    <!-- Comienza una directiva push para la pila 'styles'. Esto permite agregar estilos específicos a esta vista que se insertarán en la ubicación stack('styles') de 'layouts.app'. -->
-    <link rel="stylesheet" href="{{ asset('css/courses-list.css') }}">
-    <!-- Enlace al archivo de estilos específico para esta página de lista de cursos. La función asset() ayuda a generar la URL para el recurso en el directorio 'public'. -->
+    <link rel="stylesheet" href="{{ asset('css/courses-list.css') }}?v=1.01">
 @endpush
-<!-- Finaliza la directiva push. -->
+
+@push('scripts')
+    <script>
+        function confirmDelete(courseId) {
+            var form = document.getElementById('deleteForm');
+            form.action = '{{ route('courses.destroy', '') }}/' + courseId;
+            document.getElementById('deleteModal').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('deleteModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('deleteModal')) {
+                closeModal();
+            }
+        }
+    </script>
+@endpush

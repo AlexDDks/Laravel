@@ -8,7 +8,7 @@
 
 .back-link {
     display: inline-block;
-    background-color: #3498db;
+    background-color: #5334db;
     color: #fff;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -18,5 +18,12 @@
 }
 
 .back-link:hover {
-    background-color: #2980b9;
+    background-color: #3329b9;
 } 
+
+.course-image {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del contenedor. */
+    height: auto;    /* Mantiene el aspecto original de la imagen. */
+    display: block;  /* Para que se muestre como bloque y ocupe toda la línea. */
+    margin-bottom: 1rem; /* Espacio debajo de la imagen. */
+}

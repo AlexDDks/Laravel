@@ -1,58 +1,61 @@
 @extends('layouts.app')
-<!-- Extiende o hereda todo el contenido de la vista 'layouts.app'. Esta es una forma de usar una plantilla base y agregar contenido específico para esta vista en particular. -->
 
 @section('content')
-    <!-- Comienza una sección llamada 'content'. Esta sección se insertará en el punto de la plantilla yield('content') en 'layouts.app'. -->
-
     <h2>Add New Course</h2>
-    <!-- Título de la página -->
 
-    <form class="course-form" action="{{ route('courses.store') }}" method="post">
-        <!-- Inicio del formulario para agregar un curso. Cuando se envíe el formulario, hará una solicitud POST a la URL generada por route('courses.store'). -->
-
+    <form class="course-form" action="{{ route('courses.store') }}" method="post" enctype="multipart/form-data">
         @csrf
-        <!-- Directiva Blade para agregar un token CSRF, que es una medida de seguridad para proteger contra ataques de falsificación de solicitudes entre sitios. -->
 
         <label for="title">Title:</label>
-        <input type="text" id="title" name="title">
-        <!-- Campo para ingresar el título del curso. -->
+        <input type="text" id="title" name="title" value="{{ old('title') }}">
+        @error('title')
+            <!-- Mensaje de error para el campo 'title' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <label for="description">Description:</label>
-        <textarea id="description" name="description"></textarea>
-        <!-- Campo para ingresar la descripción del curso. -->
+        <textarea id="description" name="description">{{ old('description') }}</textarea>
+        @error('description')
+            <!-- Mensaje de error para el campo 'description' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <label for="language">Language:</label>
-        <input type="text" id="language" name="language">
-        <!-- Campo para ingresar el idioma del curso. -->
+        <input type="text" id="language" name="language" value="{{ old('language') }}">
+        @error('language')
+            <!-- Mensaje de error para el campo 'language' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <label for="difficulty">Difficulty:</label>
         <select id="difficulty" name="difficulty">
-            <option value="Beginner">Beginner</option>
-            <option value="Intermediate">Intermediate</option>
-            <option value="Advanced">Advanced</option>
+            <option value="Beginner" {{ old('difficulty') == 'Beginner' ? 'selected' : '' }}>Beginner</option>
+            <option value="Intermediate" {{ old('difficulty') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
+            <option value="Advanced" {{ old('difficulty') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
         </select>
-        <!-- Campo desplegable para seleccionar la dificultad del curso. -->
+        @error('difficulty')
+            <!-- Mensaje de error para el campo 'difficulty' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
         <label for="instructor">Instructor:</label>
-        <input type="text" id="instructor" name="instructor">
-        <!-- Campo para ingresar el nombre del instructor del curso. -->
+        <select name="instructor" id="instructor" class="form-control">
+            <option value="">Seleccione un instructor</option>
+            @foreach ($instructors as $instructor)
+                <option value="{{ $instructor->name }}" {{ old('instructor') == $instructor->name ? 'selected' : '' }}>
+                    {{ $instructor->name }}
+                </option>
+            @endforeach
+        </select>
+        @error('instructor')
+            <!-- Mensaje de error para el campo 'instructor' -->
+            <div class="alert alert-danger">{{ $message }}</div>
+        @enderror
 
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <!-- Campo para ingresar el correo electrónico del instructor o del curso. -->
+
+
+
 
         <input type="submit" value="Add Course">
-        <!-- Botón para enviar el formulario. -->
-
     </form>
-    <!-- Fin del formulario -->
 @endsection
-<!-- Finaliza la sección 'content'. -->
-
-@push('styles')
-    <!-- Comienza una directiva push para la pila 'styles'. Esto permite agregar estilos específicos a esta vista que se insertarán en la ubicación stack('styles') de 'layouts.app'. -->
-
-    <link rel="stylesheet" href="{{ asset('css/course-form.css') }}">
-    <!-- Enlace al archivo de estilos específico para este formulario. La función asset() ayuda a generar la URL para el recurso en el directorio 'public'. -->
-@endpush
-<!-- Finaliza la directiva push. -->

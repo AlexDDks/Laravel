@@ -1,26 +1,43 @@
-<!DOCTYPE html> <!-- Declaración del tipo de documento para HTML5 -->
-<html lang="en"> <!-- El documento está en inglés -->
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8"> <!-- Establece el conjunto de caracteres del documento a UTF-8 -->
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Hace que el sitio web sea responsive, asegurándose de que se visualice correctamente en dispositivos móviles -->
-    <title>Courses App</title> <!-- Establece el título de la página web -->
-    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <!-- Incluye el archivo de estilos app.css de la carpeta public/css -->
-    @stack('styles') <!-- Permite insertar estilos específicos que se "apilan" desde vistas hijo -->
+    <title>Courses App</title>
+    <link rel="stylesheet" href="{{ asset('css/course-form.css') }}?v=1.01">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}?v=1.01">
+
+    @stack('styles')
 </head>
 
-<body> <!-- Comienza el cuerpo del documento -->
+<body>
+    <header class="navbar">
+        <div class="container">
+            <a href="{{ route('courses.index') }}" class="navbar-brand">Home</a>
+            <nav>
+                <ul class="navbar-nav">
+                    <li><a href="{{ route('courses.index') }}">Courses</a></li>
+                    <li><a href="{{ route('instructors.list') }}">Instructors</a></li>
+                    <li><a href="{{ route('students.index') }}">Students</a></li>
+                    <li><a href="{{ route('instructors.create') }}">Add Instructor</a></li>
+                    <li><a href="{{ route('students.create') }}">Add Student</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-    <div class="navbar"> <!-- Contenedor para la barra de navegación -->
-        <a href="{{ route('courses.index') }}">Courses App</a>
-        <!-- Enlace a la lista de cursos. La función route() genera una URL para la ruta con el nombre 'courses.index' -->
+    <div class="container">
+        @yield('content')
     </div>
-    <div class="container"> <!-- Contenedor principal para el contenido -->
-        @yield('content') <!-- Este es un punto de inserción donde las vistas hijo pueden "introducir" su contenido -->
-    </div>
 
-</body> <!-- Fin del cuerpo del documento -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2024 Courses App. All rights reserved.</p>
+        </div>
+    </footer>
 
-</html> <!-- Fin del documento HTML -->
+    @stack('scripts')
+</body>
+
+</html>
